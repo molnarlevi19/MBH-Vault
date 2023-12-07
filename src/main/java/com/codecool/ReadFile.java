@@ -1,5 +1,7 @@
 package com.codecool;
 
+import com.codecool.logger.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,9 +11,11 @@ import java.util.List;
 public class ReadFile {
 
     private String filePath;
+    private Logger logger;
 
-    public ReadFile(String filePath) {
+    public ReadFile(String filePath, Logger logger) {
         this.filePath = filePath;
+        this.logger = logger;
     }
 
     public List<String> readDocumentContent() {
@@ -23,7 +27,7 @@ public class ReadFile {
                 lines.add(line);
             }
         } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
+            logger.logError("Error reading file: " + e.getMessage());
         }
 
         return lines;
