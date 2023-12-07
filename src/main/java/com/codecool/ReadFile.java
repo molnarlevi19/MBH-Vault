@@ -13,6 +13,9 @@ public class ReadFile {
     private final Logger logger;
 
     public ReadFile(String filePath, Logger logger) {
+        if (filePath == null) {
+            throw new IllegalArgumentException("File path cannot be null");
+        }
         this.filePath = filePath;
         this.logger = logger;
     }
