@@ -2,16 +2,15 @@ package com.codecool;
 
 import com.codecool.logger.Logger;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ReadFile {
 
-    private String filePath;
-    private Logger logger;
+    private final String filePath;
+    private final Logger logger;
 
     public ReadFile(String filePath, Logger logger) {
         this.filePath = filePath;
@@ -21,15 +20,23 @@ public class ReadFile {
     public List<String> readDocumentContent() {
         List<String> lines = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
+        try {
+            File myObj = new File(filePath);
+            Scanner myReader = new Scanner(myObj);
+
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine().trim();
+                if (!data.isEmpty()) {
+                    lines.add(data);
+                }
             }
-        } catch (IOException e) {
-            logger.logError("Error reading file: " + e.getMessage());
+
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            logger.logError("An error occurred." + e.getMessage());
         }
 
+        logger.logInfo("The read passwords: " + lines);
         return lines;
     }
 
