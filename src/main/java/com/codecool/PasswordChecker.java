@@ -5,7 +5,7 @@ import java.util.*;
 public class PasswordChecker {
 
     private static final String[] PUNCTUATION_MARKS = new String[]{"?", "!", "."};
-    private List<String> passwords;
+    private final List<String> passwords;
 
     public PasswordChecker(List<String> passwords) {
         this.passwords = passwords;
@@ -29,11 +29,11 @@ public class PasswordChecker {
         return correctPasswords;
     }
 
-    private boolean hasMoreThanOneWord(String password){
+    boolean hasMoreThanOneWord(String password){
         return password.contains(" ");
     }
 
-    private boolean hasSignAtTheEnd(String password) {
+    boolean hasSignAtTheEnd(String password) {
         for (String mark : PUNCTUATION_MARKS) {
             if (password.endsWith(mark)) {
                 return true;
@@ -42,7 +42,7 @@ public class PasswordChecker {
         return false;
     }
 
-    private boolean hasNoDuplication(String password){
+    boolean hasNoDuplication(String password){
         String[] splitPassword = password.split("\\W+");
 
         Set<String> counterDuplicates = new HashSet<>(Arrays.asList(splitPassword));
@@ -50,7 +50,7 @@ public class PasswordChecker {
         return splitPassword.length == counterDuplicates.size();
     }
 
-    private boolean onlyEnglishLetters(String password){
+    boolean onlyEnglishLetters(String password){
         if(hasSignAtTheEnd(password)){
             String passwordWithoutMark = password.substring(0, password.length() - 1);
 
@@ -60,7 +60,7 @@ public class PasswordChecker {
         return false;
     }
 
-    private boolean onlyLowerCaseLetters(String password){
+    boolean onlyLowerCaseLetters(String password){
         return password.toLowerCase().equals(password);
     }
 
