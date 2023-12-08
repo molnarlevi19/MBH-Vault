@@ -7,18 +7,18 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Logger logger1 = new ConsoleLogger();
+        Logger logger = new ConsoleLogger();
 
         String filePath = "src/main/resources/input.txt";
 
-        ReadFile readFile = new ReadFile(filePath, logger1);
+        ReadFile readFile = new ReadFile(filePath, logger);
         List<String> asd = readFile.readDocumentContent();
 
         PasswordChecker passwordChecker = new PasswordChecker(asd);
         List<String> correctPassword = passwordChecker.passwordChecker();
-        logger1.logInfo("The correct password(s): " + correctPassword.toString());
+        logger.logInfo("The correct password(s): " + correctPassword.toString());
 
-        logger1.logInfo("The number of correct password(s): " + correctPassword.size());
+        logger.logInfo("The number of correct password(s): " + correctPassword.size());
     }
 
 }

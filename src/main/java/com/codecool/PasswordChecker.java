@@ -15,18 +15,21 @@ public class PasswordChecker {
         List<String> correctPasswords = new ArrayList<>();
 
         for(String password : this.passwords){
-            if(hasMoreThanOneWord(password) &&
-                    hasSignAtTheEnd(password) &&
-                    hasNoDuplication(password) &&
-                    onlyEnglishLetters(password) &&
-                    onlyLowerCaseLetters(password)
-            ) {
+            if(isValidPassword(password)) {
 
                 correctPasswords.add(password);
             }
         }
 
         return correctPasswords;
+    }
+
+    public boolean isValidPassword(String password) {
+        return hasMoreThanOneWord(password) &&
+                hasSignAtTheEnd(password) &&
+                hasNoDuplication(password) &&
+                onlyEnglishLetters(password) &&
+                onlyLowerCaseLetters(password);
     }
 
     boolean hasMoreThanOneWord(String password){
