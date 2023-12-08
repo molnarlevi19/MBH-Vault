@@ -25,25 +25,60 @@ class PasswordCheckerTest {
                 "almost valid pássword!",
                 "valid password second!",
                 "invalid password no punctuation",
-                "invalid password no password duplicate?"
+                "invalid password no password duplicate?",
+                "alma korte!",
+                "szilva.",
+                "citrom lime",
+                "korte korte?",
+                "dinnye, ananasz, fuge",
+                "Alma Korte!"
         );
 
         passwordChecker = new PasswordChecker(testPasswords);
     }
+
     @Test
     void testPasswordChecker() {
+        List<String> expectedValidPasswords = Arrays.asList(
+                "valid password first.",
+                "valid password second!",
+                "alma korte!"
+        );
 
-        List<String> correctPasswords = passwordChecker.passwordChecker();
+        List<String> actualValidPasswords = passwordChecker.passwordChecker();
 
-        assertEquals(2, correctPasswords.size());
-        assertEquals("valid password first.", correctPasswords.get(0));
-        assertEquals("valid password second!", correctPasswords.get(1));
+        assertEquals(expectedValidPasswords, actualValidPasswords);
     }
 
     @Test
-    void testHasMoreThanOneWord() {
-        assertTrue(passwordChecker.hasMoreThanOneWord("Two words"));
-        assertFalse(passwordChecker.hasMoreThanOneWord("SingleWord"));
+    void testValidPassword(){
+        assertTrue(passwordChecker.isValidPassword("alma korte!"));
+    }
+
+    @Test
+    void testInvalidPassword_WithSingleWord() {
+        assertFalse(passwordChecker.isValidPassword("szilva."));
+    }
+
+    @Test
+    void testInvalidPassword_WithNoPunctuation() {
+        assertFalse(passwordChecker.isValidPassword("citrom lime"));
+    }
+
+    @Test
+    void testInvalidPassword_WithDuplicateWord() {
+        assertFalse(passwordChecker.isValidPassword("korte korte?"));
+    }
+
+    @Test
+    void testInvalidPassword_WithUpperCaseLetter() {
+        assertFalse(passwordChecker.isValidPassword("Alma Korte!"));
+    }
+
+
+    @Test
+    void testInvalidPassword_WithNonAlphabeticCharacters() {
+        assertFalse(passwordChecker.isValidPassword("dinnye, ananasz, fuge"));
     }
 
     @ParameterizedTest
@@ -64,19 +99,19 @@ class PasswordCheckerTest {
     }
 
     @Test
-    void testHasNoDuplication() {
+    void testPassword_WithNoDuplication() {
         assertTrue(passwordChecker.hasNoDuplication("almost valid pássword!"));
         assertFalse(passwordChecker.hasNoDuplication("invalid password no password duplicate?"));
     }
 
     @Test
-    void testOnlyEnglishLetters() {
+    void testPassword_WithOnlyEnglishLetters() {
         assertTrue(passwordChecker.onlyEnglishLetters("valid password first."));
         assertFalse(passwordChecker.onlyEnglishLetters("almost valid pássword!"));
     }
 
     @Test
-    void testOnlyLowerCaseLetters() {
+    void testPassword_WithOnlyLowerCaseLetters() {
         assertTrue(passwordChecker.onlyLowerCaseLetters("invalid password no punctuation"));
         assertFalse(passwordChecker.onlyLowerCaseLetters("InValidPassword because UpperCase!"));
     }
