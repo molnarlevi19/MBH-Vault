@@ -54,7 +54,6 @@ public class ReadFile {
             logger.logError("An error occurred." + e.getMessage());
         }
 
-        logger.logInfo("The read passwords: " + lines);
         return lines;
     }
 

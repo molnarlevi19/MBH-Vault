@@ -17,6 +17,9 @@ public class Main {
 
         PasswordChecker passwordChecker = new PasswordChecker(passwordsInFile);
         List<String> correctPassword = passwordChecker.passwordChecker();
+
+        vaultLogger.logInfo("The read password(s): " + passwordsInFile);
+
         vaultLogger.logInfo("The correct password(s): " + correctPassword.toString());
 
         vaultLogger.logInfo("The number of correct password(s): " + correctPassword.size());
