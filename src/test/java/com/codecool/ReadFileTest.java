@@ -1,5 +1,6 @@
 package com.codecool;
 
+import com.codecool.filereader.ReadFile;
 import com.codecool.logger.Logger;
 import com.codecool.ui.ConsoleLogger;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package com.codecool;
+package com.codecool.filereader;
 
 import com.codecool.logger.Logger;
 
